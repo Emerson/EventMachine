@@ -17,15 +17,18 @@ class ConnectionManager
   end
 
   def add_socket(socket)
-    puts "Adding socket to pool"
-    token = socket.request['query']['auth']
-    @sockets[token] = socket
+    puts "Adding socket to pool: #{socket.signature}"
+    @global.subscribe do |msg|
+      socket.send(msg)
+    end
+    @global.push("#{socket.signature} connected")      
+    @sockets[socket.signature] = socket
   end
 
   def remove_socket(socket)
-    puts "Removing socket from pool"
-    token = socket.request['query']['auth']
-    @sockets.delete(token)
+    puts "Removing socket from pool: #{socket.signature}"
+    @sockets.delete(socket.signature)
+    @global.push("#{socket.signature} disconnected")
   end
 
   def process_message(socket, msg)

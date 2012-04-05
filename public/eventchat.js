@@ -7,6 +7,9 @@ $(document).ready(function() {
 		e.preventDefault();
 		var path = $('#token').val();
 		ws = new WebSocket('ws://localhost:8080/?auth='+path);
+		ws.onmessage = function(msg) {
+		    console.log(msg);
+		}
 	});
 
 	$('#send').click(function(e) {
