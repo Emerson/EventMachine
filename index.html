@@ -13,8 +13,10 @@
 			var ws = new WebSocket('ws://0.0.0.0:8000');
         </script>
 
+        <script type="text/javascript" src="public/javascript/connectionModel.js"></script>
         <script type="text/javascript" src="public/javascript/userModel.js"></script>
         <script type="text/javascript" src="public/javascript/loginLayout.js"></script>
+        <script type="text/javascript" src="public/javascript/reconnectLayout.js"></script>
         <script type="text/javascript" src="public/eventchat.js"></script>
         
         <link rel="stylesheet" href="public/bootstrap/css/bootstrap.min.css">
@@ -45,6 +47,16 @@
 		</div>
         </script>
         
+         <script type="mustache/tmpl" id='reconnectLayoutTemplate'>
+         <div class="row-fluid">
+         	<div class="span4">
+         		<h2>Connection Lost</h2>
+         		<p>Oh no, it looks like the connection to the server was lost. Would you like to reconnect?</p>
+         		<a href='#' id="reconnect">Reconnect</a>
+         	</div><!-- .span4 -->
+         </div><!-- .row-fluid -->
+         </script>
+
     </head>
     <body>
 

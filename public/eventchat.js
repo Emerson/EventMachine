@@ -24,6 +24,10 @@ $(document).ready(function() {
 		console.log(msg, msg.data);
 	}
 
+	ws.onclose = function(msg) {
+		new ReconnectLayout().render();
+	}
+
 	// $('#connect').click(function(e) {
 	// 	e.preventDefault();
 	// 	var username = $('#username').val();

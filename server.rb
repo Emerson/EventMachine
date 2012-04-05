@@ -4,6 +4,7 @@ require "em-websocket"
 require "pp"
 require "json"
 
+require "./lib/client"
 require "./lib/connection_manager"
 
 
