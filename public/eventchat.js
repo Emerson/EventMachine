@@ -5,8 +5,8 @@ $(document).ready(function() {
 
 	$('#connect').click(function(e) {
 		e.preventDefault();
-		var path = $('#token').val();
-		ws = new WebSocket('ws://localhost:8080/?auth='+path);
+		var username = $('#username').val();
+		ws = new WebSocket('ws://localhost:8080/?username='+username);
 		ws.onmessage = function(msg) {
 		    console.log(msg);
 		}

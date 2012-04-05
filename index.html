@@ -5,21 +5,54 @@
         <title>EventChat</title>
         <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script type="text/javascript" src="public/eventchat.js"></script>
+        
+        <link rel="stylesheet" href="public/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="public/bootstrap/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="public/css/application.css">
+        
     </head>
     <body>
 
-    	<div>
-    		<input type="text" id="token" name="token">
-    		<input type="submit" id="connect" value="Connect">
-    	</div>
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="./index.html">EventChat</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                        </ul>
+                    </div><!-- .nav-collapse -->
+                </div><!-- .container -->
+            </div><!-- .navbar-inner -->
+        </div><!-- navbar -->
 
-    	<div>
-    		<input type="text" id="message" name="token">
-    		<input type="submit" id="send" value="Send Message">
-    	</div>
+        <div class="container-fluid">
 
-    	<ul class="userlist">
-    	</ul>
+            <div class="row-fluid">
+                
+                <div class="span4">
+                    <h2>Users</h2>
+                    <ul class="userlist">
+                    </ul>
+                </div>
+                
+                <div class="span4">
+                    <h2>Rooms</h2>
+                    <ul class="roomlist">
+                    </ul>
+                </div>
+
+                <div class="span4">
+                    <h2>Connection</h2>
+                    <form class="form-horizontal">
+                        <label>Choose a username and hit connect</label>
+                        <input type="text" id="username" name="username">
+                		<input type="submit" id="connect" value="Connect" class="btn">
+                    </form>
+                </div>
+
+            </div><!-- .row-fluid -->
+            
+        </div><!-- .container-fluid -->
 
     </body>
 </html>
