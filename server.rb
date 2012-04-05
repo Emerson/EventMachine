@@ -2,20 +2,14 @@ require "rubygems"
 require "eventmachine"
 require "em-websocket"
 require "pp"
-
+require "json"
 
 require "./lib/connection_manager"
 
 
 
-server_options = {:host => 'localhost', :port => 8080}
-
-def close(ws)
-  puts "Connection Terminated"
-end
-
-
 CM = ConnectionManager.new
+server_options = {:host => '0.0.0.0', :port => 8000}
 
 EM.run do
 

@@ -23,6 +23,7 @@ class ConnectionManager
     end
     @global.push("#{socket.signature} connected")      
     @sockets[socket.signature] = socket
+    socket.send('connected');
   end
 
   def remove_socket(socket)
@@ -32,9 +33,15 @@ class ConnectionManager
   end
 
   def process_message(socket, msg)
-    puts msg
-    @sockets.each do |key, item|
-      pp "auth: "+item.request['query']['auth']
+    if msg
+      msg = JSON(msg)
+      self.send(msg['action'], msg['data'], socket) if self.respond_to?(msg['action'])
     end
+    puts msg
   end
+
+  def login(data, socket)
+    pp data
+  end
+
 end
