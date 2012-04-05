@@ -1,22 +1,21 @@
 require "rubygems"
 require "eventmachine"
 require "em-websocket"
+require "pp"
+
+
+require "./lib/connection_manager"
+
 
 
 server_options = {:host => 'localhost', :port => 8080}
-
-
-def open(ws)
-  puts "Connection Established"
-end
 
 def close(ws)
   puts "Connection Terminated"
 end
 
-def process_message
-  puts "Processing Message"
-end
+
+CM = ConnectionManager.new
 
 EM.run do
 
@@ -25,9 +24,9 @@ EM.run do
 
   EM::WebSocket.start(server_options) do |ws|
 
-    ws.onopen { open(ws) }
-    ws.onmessage { |msg| process_message(ws, msg) }
-    ws.onclose{ close(ws) }
+    ws.onopen { CM.add_socket(ws) }
+    ws.onmessage { |msg| CM.process_message(ws, msg) }
+    ws.onclose{ CM.remove_socket(ws) }
 
   end
 
