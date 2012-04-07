@@ -8,6 +8,8 @@ require "./lib/client"
 require "./lib/connection_manager"
 
 
+server_options = {:host => 'localhost', :port => 8080}
+
 
 CM = ConnectionManager.new
 server_options = {:host => '0.0.0.0', :port => 8000}

@@ -1,12 +1,39 @@
+var connection,
+	current_user,
+	application,
+	base_url;
+
+
 // Create our Application
 var App = (function($) {
 
 	var self = {};
 
+	// The Views
+	self.LoginView     = new LoginView();
+	self.ReconnectView = new ReconnectView();
+	self.LobbyView     = new LobbyView();
+
 	self.start = function() {
-		new LoginLayout().render();
+		base_url = window.location.href;
+     	connection = new ConnectionModel();
+
+     	// Setup and start the router
+   		self.Router = new Routes(self);
+   		Backbone.history.start({pushState: true, root: window.location.pathname});
+		
+		// Visit the login action
+   		self.Router.navigate('login');
+
+   		// Bind our websocket events to routes
+		self.bind_events(self.Router);
 	};
 
+	self.bind_events = function(router) {
+		$('body').on('connection_lost', function() { self.Router.navigate("reconnect", {trigger: true}); });
+		$('body').on('connection_reestablished', function() { self.Router.navigate("login", {trigger: true}); });
+		$('body').on('user_authenticated', function() { self.Router.navigate("lobby", {trigger: true}); });
+	}
 
 	return self;
 
@@ -14,32 +41,9 @@ var App = (function($) {
 
 
 
-
-
 $(document).ready(function() {
 
-	new App(jQuery).start();
-
-	ws.onmessage = function(msg) {
-		console.log(msg, msg.data);
-	}
-
-	ws.onclose = function(msg) {
-		new ReconnectLayout().render();
-	}
-
-	// $('#connect').click(function(e) {
-	// 	e.preventDefault();
-	// 	var username = $('#username').val();
-	// 	ws = new WebSocket('ws://localhost:8080/?username='+username);
-	// 	ws.onmessage = function(msg) {
-	// 	    console.log(msg);
-	// 	}
-	// });
-
-	// $('#send').click(function(e) {
-	// 	e.preventDefault();
-	// 	ws.send($('#message').val());
-	// });
+	application = new App(jQuery);
+	application.start();
 
 });
