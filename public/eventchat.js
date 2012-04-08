@@ -30,9 +30,13 @@ var App = (function($) {
 	};
 
 	self.bind_events = function(router) {
+		// Main Routes
 		$('body').on('connection_lost', function() { self.Router.navigate("reconnect", {trigger: true}); });
 		$('body').on('connection_reestablished', function() { self.Router.navigate("login", {trigger: true}); });
 		$('body').on('user_authenticated', function() { self.Router.navigate("lobby", {trigger: true}); });
+
+		// Specific WebSocket Events
+		$('body').on('connected_users', function(e, msg) { self.LobbyView.update_users(e, msg) });
 	}
 
 	return self;

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>EventChat</title>
+        
+        
+        <script type="text/javascript">
+        	// Define our Pipeline
+			var ws;
+        </script>
+
+        <%= erb(:assets) %>
+
+        <script type="mustache/tmpl" id='loginLayoutTemplate'>
+        <div class='row-fluid'>
+			<div class='span4'>
+				<form action='#' class='form-horizontal'>
+
+					<div class="control-group">
+						<label for='email'>Email</label>
+						<input type='text' name='email' id='login_email'>
+					</div>
+
+					<div class="control-group">
+						<label for='password'>Password</label>
+						<input type='password' name='password' id='login_password'>
+					</div>
+
+					<div class="form-actions">
+						<input type='submit' value='Login' class='login pull-left btn'>
+					</div>
+
+				</form>
+			</div>
+		</div>
+        </script>
+        
+        <script type="mustache/tmpl" id='reconnectLayoutTemplate'>
+        <div class="row-fluid">
+        	<div class="span4">
+        		<h2>Connection Lost</h2>
+        		<p>Oh no, it looks like the connection to the server was lost.Would you like to reconnect?</p>
+        		<a href='#' id="reconnect">Reconnect</a>
+        	</div><!-- .span4 -->
+        </div><!-- .row-fluid -->
+        </script>
+
+        <script type="mustache/tmpl" id='lobbyLayoutTemplate'>
+         <div class="row-fluid">
+            <div class="span4">
+                <h2>Users</h2>
+                <ul class="online-users">
+                </ul>
+            </div><!-- .span4 -->
+            <div class="span4">
+                <h2>Global Chat</h2>
+            </div><!-- .span4 -->
+            <div class="span4">
+                <h2>Rooms</h2>
+            </div>
+         </div>
+         </script>
+
+        <script type="mustache/tmpl" id='onlineUserTemplate'>
+            <li data-id="{{id}}">{{email}}</li>
+        </script>
+
+    </head>
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="./index.html">EventChat</a>
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                        </ul>
+                    </div><!-- .nav-collapse -->
+                </div><!-- .container -->
+            </div><!-- .navbar-inner -->
+        </div><!-- navbar -->
+
+        <div class="container-fluid" id="view">
+            
+        </div><!-- .container-fluid -->
+
+    </body>
+</html>

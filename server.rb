@@ -1,4 +1,5 @@
 require "rubygems"
+require "sinatra/base"
 require "eventmachine"
 require "em-websocket"
 require "pp"
@@ -27,4 +28,17 @@ EM.run do
 
   end
 
+  class App < Sinatra::Base
+
+    get '/' do
+      erb :index
+    end
+
+    get '/*' do
+      redirect('/')
+    end
+
+  end
+
+  App.run!({:port => 4567})
 end
