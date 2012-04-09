@@ -65,5 +65,13 @@ module EventChat
       end
     end
 
+    def user_for_socket(socket)
+      if @users[socket.signature]
+        @users[socket.signature]
+      else
+        false
+      end
+    end
+
   end
 end

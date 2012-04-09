@@ -28,6 +28,11 @@ var LobbyView = Backbone.View.extend({
 			var response = {action: 'process_global_chat_message', data: {message: message, user: current_user}};
 			connection.send(JSON.stringify(response));
 		}
+		$('#globalChatMessage').val('');
+	},
+
+	global_chat_message: function(type, json) {
+		$('.global-chat-window').append("<p><strong>"+json.data.user.email+"</strong>: "+json.data.message+"</p>")
 	},
 
 	set_user_credentials: function(type, json) {

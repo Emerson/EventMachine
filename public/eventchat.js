@@ -38,6 +38,7 @@ var App = (function($) {
 		// Specific WebSocket Events
 		$('body').on('login', function(e, msg) { self.LobbyView.set_user_credentials(e, msg); });
 		$('body').on('authenticated_users', function(e, msg) { self.LobbyView.update_users(e, msg) });
+		$('body').on('global_chat_message', function(e, msg) { self.LobbyView.global_chat_message(e, msg) });
 	}
 
 	return self;

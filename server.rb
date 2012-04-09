@@ -6,6 +6,7 @@ require "pp"
 require "json"
 
 require "./lib/modules/authentication"
+require "./lib/modules/global_chat"
 require "./lib/client"
 require "./lib/connection_manager"
 

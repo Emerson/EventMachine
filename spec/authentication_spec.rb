@@ -58,4 +58,12 @@ describe "Authentication Module" do
     done
   end
 
+  it "should return a user when given a socket" do
+    fake_socket = FakeSocket.new
+    login_data = {'email' => "return-me@email.com"}
+    CM.login(fake_socket, login_data)
+    CM.user_for_socket(fake_socket).instance_of?(Client).should == true
+    done
+  end
+
 end
