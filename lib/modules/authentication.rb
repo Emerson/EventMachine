@@ -37,13 +37,32 @@ module EventChat
       EM.next_tick { socket.send(response.to_json) }
 
       # Push a global notification to other users about the update
-      connected_users(socket)
+      authenticated_users(socket)
       else
         # When False...
       end
     end
 
-    def connected_users(socket)
+    def authenticated_users(socket)
+      response = {:action => "authenticated_users", :status => "success"}
+      response[:data] = {:online_users => @users.count, :users => generate_online_users_response()}
+      @global.push(response.to_json)
+    end
+
+    def generate_online_users_response
+      data = Hash.new
+      @users.each do |index, user|
+        data[user.token] = {:email => user.email, :id => user.token}
+      end
+      data
+    end
+
+    def authorized?(socket)
+      if @users[socket.signature]
+        true
+      else
+        false
+      end
     end
 
   end

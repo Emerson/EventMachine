@@ -8,7 +8,7 @@ var ConnectionModel = Backbone.Model.extend({
     	
     	var that = this;
 
-		this.ws = new ReconnectingWebSocket('ws://0.0.0.0:8000');
+		this.ws = new ReconnectingWebSocket('ws://0.0.0.0:8080');
 
 	    this.ws.onmessage = function(msg) {
 	    	console.log(msg, 'raw onmessage');

@@ -2,16 +2,16 @@ class ConnectionManager
 
   include EventChat::Authentication
 
-  attr_accessor :rooms, :sockets, :global, :users
+  attr_accessor :sockets, :global, :users
 
   def initialize
-    @rooms = {}
+    # All connected sockets
     @sockets = {}
 
-    # Holds our authenticated users
+    # Authenticated users
     @users = {}
 
-    # A channel for all authenticated users
+    # Authenticated users channel
     @global = EM::Channel.new
   end
 
@@ -28,7 +28,7 @@ class ConnectionManager
     @sockets.delete(socket.signature)
     @users.delete(socket.signature)
     @global.push(response)
-    EM.next_tick { connected_users(socket) }
+    EM.next_tick { authenticated_users(socket) }
   end
 
   def process_message(socket, msg)
@@ -49,20 +49,6 @@ class ConnectionManager
 
   def process_global_chat_message(data, socket)
     pp data
-  end
-
-  def connected_users(socket)
-    response = {:action => "connected_users", :status => "success"}
-    response[:data] = {:online_users => @users.count, :users => generate_online_users_response()}
-    @global.push(response.to_json)
-  end
-
-  def generate_online_users_response
-    data = Hash.new
-    @users.each do |index, user|
-      data[user.token] = {:email => user.email, :id => user.token}
-    end
-    data
   end
 
 end
