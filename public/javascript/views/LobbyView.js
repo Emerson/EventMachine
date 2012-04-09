@@ -2,6 +2,10 @@ var LobbyView = Backbone.View.extend({
 
 	el: '#view',
 
+	events: {
+		"click #globalChatSubmit"          : "send_global_chat_message"
+	},
+
 	render: function(view) {
 		var lobbyLayoutHtml = Mustache.to_html($('#lobbyLayoutTemplate').html());
 		$(this.el).html(lobbyLayoutHtml);
@@ -15,7 +19,24 @@ var LobbyView = Backbone.View.extend({
 			console.log(id, user);
 			$('.online-users').append(Mustache.to_html(onlineUserHtml, user));
 		});
-		
+	},
+
+	send_global_chat_message: function(e) {
+		e.preventDefault();
+		var message = $('#globalChatMessage').val();
+		if(message != '') {
+			var response = {action: 'process_global_chat_message', data: {message: message, user: current_user}};
+			connection.send(JSON.stringify(response));
+		}
+	},
+
+	set_user_credentials: function(type, json) {
+		console.log(type, 'set_user_credentials');
+		console.log(json, 'set_user_credentials');
+		if(current_user) {
+
+			// current_user.set('private_token', )
+		}
 	}
 
 });

@@ -33,9 +33,10 @@ var App = (function($) {
 		// Main Routes
 		$('body').on('connection_lost', function() { self.Router.navigate("reconnect", {trigger: true}); });
 		$('body').on('connection_reestablished', function() { self.Router.navigate("login", {trigger: true}); });
-		$('body').on('user_authenticated', function() { self.Router.navigate("lobby", {trigger: true}); });
+		$('body').on('user_authenticated', function(e, msg) { self.Router.navigate("lobby", {trigger: true}); });
 
 		// Specific WebSocket Events
+		$('body').on('login', function(e, msg) { self.LobbyView.set_user_credentials(e, msg); });
 		$('body').on('connected_users', function(e, msg) { self.LobbyView.update_users(e, msg) });
 	}
 

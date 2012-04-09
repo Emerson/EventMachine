@@ -5,22 +5,27 @@ require "em-websocket"
 require "pp"
 require "json"
 
+require "./lib/modules/authentication"
 require "./lib/client"
 require "./lib/connection_manager"
 
 
-server_options = {:host => 'localhost', :port => 8080}
-
+if ARGV.first == 'test'
+  em_options = {:host => 'localhost', :port => 9999}
+  sinatra_options = {:port => 8888}
+else
+  em_options = {:host => 'localhost', :port => 8080}
+  sinatra_options = {:port => 4567}
+end
 
 CM = ConnectionManager.new
-server_options = {:host => '0.0.0.0', :port => 8000}
 
 EM.run do
 
   puts "Starting the Reactor..."
-  puts "Socket: ws://#{server_options[:host]}:#{server_options[:port]}"
+  puts "Socket: ws://#{em_options[:host]}:#{em_options[:port]}"
 
-  EM::WebSocket.start(server_options) do |ws|
+  EM::WebSocket.start(em_options) do |ws|
 
     ws.onopen { CM.add_socket(ws) }
     ws.onmessage { |msg| CM.process_message(ws, msg) }
@@ -40,5 +45,5 @@ EM.run do
 
   end
 
-  App.run!({:port => 4567})
+  App.run!(sinatra_options)
 end

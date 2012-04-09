@@ -1,5 +1,7 @@
 class ConnectionManager
 
+  include EventChat::Authentication
+
   attr_accessor :rooms, :sockets, :global, :users
 
   def initialize
@@ -40,23 +42,13 @@ class ConnectionManager
           puts "Error Parsing: #{e.inspect}"
         end
         puts "parsed message: #{msg.inspect}"
-        self.send(msg['action'], msg['data'], socket) if self.respond_to?(msg['action'])
+        self.send(msg['action'], socket, msg['data']) if self.respond_to?(msg['action'])
       end
     
   end
 
-  def login(data, socket)
-    response = {:action => "login", :status => "fail", :message => "There was a problem with your email or password"}
-    # TODO - Add real authentication
-
-    @global.subscribe do |msg|
-      socket.send(msg)
-    end
-    response = {:action => "login", :status => "success", :message => "You have been logged in"}
-    user = Client.new(data['email'], socket)
-    @users[socket.signature] = user
-    connected_users(socket)
-    socket.send(response.to_json)
+  def process_global_chat_message(data, socket)
+    pp data
   end
 
   def connected_users(socket)
