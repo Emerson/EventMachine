@@ -7,6 +7,7 @@ require "json"
 
 require "./lib/modules/authentication"
 require "./lib/modules/global_chat"
+require "./lib/modules/chat_rooms"
 require "./lib/client"
 require "./lib/connection_manager"
 
@@ -15,7 +16,7 @@ if ARGV.first == 'test'
   em_options = {:host => 'localhost', :port => 9999}
   sinatra_options = {:port => 8888}
 else
-  em_options = {:host => 'localhost', :port => 8080}
+  em_options = {:host => 'emerson.local', :port => 8080}
   sinatra_options = {:port => 4567}
 end
 

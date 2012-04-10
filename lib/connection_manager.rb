@@ -2,6 +2,7 @@ class ConnectionManager
 
   include EventChat::Authentication
   include EventChat::GlobalChat
+  include EventChat::ChatRooms
 
   attr_accessor :sockets, :global, :users
 
@@ -14,6 +15,8 @@ class ConnectionManager
 
     # Authenticated users channel
     @global = EM::Channel.new
+
+    super
   end
 
   def add_socket(socket)

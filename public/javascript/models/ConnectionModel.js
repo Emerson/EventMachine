@@ -8,7 +8,7 @@ var ConnectionModel = Backbone.Model.extend({
     	
     	var that = this;
 
-		this.ws = new ReconnectingWebSocket('ws://0.0.0.0:8080');
+		this.ws = new ReconnectingWebSocket( this.websocket_url() );
 
 	    this.ws.onmessage = function(msg) {
 	    	console.log(msg, 'raw onmessage');
@@ -47,6 +47,10 @@ var ConnectionModel = Backbone.Model.extend({
     	if(this.open) {
     		this.ws.send(msg);
     	};
+    },
+
+    websocket_url: function() {
+    	return "ws://" + location.hostname +":8080/";
     }
 
 });

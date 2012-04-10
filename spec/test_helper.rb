@@ -5,7 +5,9 @@ require 'json'
 lib_path = File.dirname(File.dirname(__FILE__))
 require lib_path+'/lib/modules/authentication.rb'
 require lib_path+'/lib/modules/global_chat.rb'
+require lib_path+'/lib/modules/chat_rooms.rb'
 require lib_path+'/lib/connection_manager.rb'
+
 require lib_path+'/lib/client.rb'
 
 

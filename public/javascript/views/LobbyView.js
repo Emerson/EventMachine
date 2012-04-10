@@ -25,7 +25,7 @@ var LobbyView = Backbone.View.extend({
 		e.preventDefault();
 		var message = $('#globalChatMessage').val();
 		if(message != '') {
-			var response = {action: 'process_global_chat_message', data: {message: message, user: current_user}};
+			var response = {action: 'process_global_chat_message', data: {'message': message, user: current_user}};
 			connection.send(JSON.stringify(response));
 		}
 		$('#globalChatMessage').val('');

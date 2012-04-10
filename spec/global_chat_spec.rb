@@ -30,13 +30,14 @@ describe "Global Chat Module" do
     fake_socket = FakeSocket.new
     login_data = {'email' => "hash-info@email.com"}
     CM.login(fake_socket, login_data)
-    fake_chat_message = {action: 'process_global_chat_message', data: {:message => 'hi everyone', :user => 'authorized-user@email.com'}}
+    fake_chat_message = {'message' => 'hi everyone', :user => 'authorized-user@email.com'}
     CM.process_global_chat_message(fake_socket, fake_chat_message)
     response = JSON(fake_socket.responses.last)
-    pp response
+    
     JSON(fake_socket.responses.last)['data']['user']['email'].nil?.should == false
     JSON(fake_socket.responses.last)['data']['message'].nil?.should == false
     JSON(fake_socket.responses.last)['data']['timestamp'].nil?.should == false
+    done
   end
 
 end
